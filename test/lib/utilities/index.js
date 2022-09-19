@@ -23,4 +23,5 @@ module.exports = () => {
     describe('deepmerge', deepmerge);
     describe('isPromise', isPromise);
     describe('stringUtils', stringUtilsTest);
+    describe('awaitIfNeeded', awaitIfNeeded);
 };
