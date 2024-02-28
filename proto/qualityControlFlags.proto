@@ -1,0 +1,35 @@
+syntax = 'proto3';
+
+package o2.bookkeeping
+
+import 'common.proto'
+
+service QualityControlFlagService {
+    rpc CreateForDataPass(DataPassQualityControlFlagCreationRequest) returns (QualityControlFlag);
+    rpc CreateForSimulationPass(SimulationPassQualityControlFlagCreationRequest) returns (QualityControlFlag);
+}
+
+message DataPassQualityControlFlagCreationRequest {
+    int32 runNumber = 1;
+    string passName = 2;
+    string detector = 3;
+    repeated QualityControlFlag flags = 4;
+}
+
+
+message SimulationPassQualityControlFlagCreationRequest {
+    int32 runNumber = 1;
+    string productionName = 2;
+    string detector = 3;
+    repeated QualityControlFlag flags = 4;
+}
+
+message QualityControlFlag {
+    uint16 flagTypeId = 1; 
+    uint64 from = 2;
+    uint64 to = 3;
+    optional string comment = 4; 
+    // string indicating what produced this flag. 
+    // it could be a check name (e.g. TPC/Clusters, ITS/Efficiency) or a person name
+    string origin = 5; 
+}
