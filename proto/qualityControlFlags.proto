@@ -5,14 +5,18 @@ package o2.bookkeeping
 import 'common.proto'
 
 service QualityControlFlagService {
-    rpc CreateForDataPass(DataPassQualityControlFlagCreationRequest) returns (QualityControlFlag);
-    rpc CreateForSimulationPass(SimulationPassQualityControlFlagCreationRequest) returns (QualityControlFlag);
+    rpc CreateForDataPass(DataPassQualityControlFlagCreationRequest) returns (QualityControlFlagCreationResponse);
+    rpc CreateForSimulationPass(SimulationPassQualityControlFlagCreationRequest) returns (QualityControlFlagCreationResponse);
+}
+
+message QualityControlFlagCreationResponse {
+    int32 flagId = 1;
 }
 
 message DataPassQualityControlFlagCreationRequest {
     int32 runNumber = 1;
     string passName = 2;
-    string detector = 3;
+    string detectorName = 3;
     repeated QualityControlFlag flags = 4;
 }
 
@@ -20,7 +24,7 @@ message DataPassQualityControlFlagCreationRequest {
 message SimulationPassQualityControlFlagCreationRequest {
     int32 runNumber = 1;
     string productionName = 2;
-    string detector = 3;
+    string detectorName = 3;
     repeated QualityControlFlag flags = 4;
 }
 
