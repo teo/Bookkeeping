@@ -1,37 +1,41 @@
 syntax = 'proto3';
 
-package o2.bookkeeping
+package o2.bookkeeping;
 
-import 'common.proto'
+import 'common.proto';
 
-service QualityControlFlagService {
-    rpc CreateForDataPass(DataPassQualityControlFlagCreationRequest) returns (QualityControlFlagCreationResponse);
-    rpc CreateForSimulationPass(SimulationPassQualityControlFlagCreationRequest) returns (QualityControlFlagCreationResponse);
+service QCFlagService {
+    rpc CreateForDataPass(DataPassQCFlagCreationRequest) returns (QCFlagCreationResponse);
+    rpc CreateForSimulationPass(SimulationPassQCFlagCreationRequest) returns (QCFlagCreationResponse);
 }
 
-message QualityControlFlagCreationResponse {
+message QCFlagCreationResponse {
     int32 flagId = 1;
 }
 
-message DataPassQualityControlFlagCreationRequest {
+message DataPassQCFlagCreationRequest {
     int32 runNumber = 1;
+    // usually apassN, cpassN, where N is a natural number
     string passName = 2;
     string detectorName = 3;
-    repeated QualityControlFlag flags = 4;
+    repeated QCFlag flags = 4;
 }
 
-
-message SimulationPassQualityControlFlagCreationRequest {
+message SimulationPassQCFlagCreationRequest {
     int32 runNumber = 1;
+    // Simulation Pass (production) Tag
     string productionName = 2;
     string detectorName = 3;
-    repeated QualityControlFlag flags = 4;
+    repeated QCFlag flags = 4;
 }
 
-message QualityControlFlag {
-    uint16 flagTypeId = 1; 
+message QCFlag {
+    uint16 flagTypeId = 1;
+    // Unix timestamp since which QC flag applies to data taken during given run
     uint64 from = 2;
+    // Unix timestamp until which QC flag applies to data taken during given run
     uint64 to = 3;
+    // string indicating why a given flag was given, providing some details about the nature of the problem
     optional string comment = 4; 
     // string indicating what produced this flag. 
     // it could be a check name (e.g. TPC/Clusters, ITS/Efficiency) or a person name
