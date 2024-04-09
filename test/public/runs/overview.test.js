@@ -23,10 +23,16 @@ const {
     goToPage,
     checkColumnBalloon,
     waitForNetworkIdleAndRedraw,
+    fillInput,
+    getPopoverContent,
+    getInnerText,
+    waitForTimeout,
+    getPopoverSelector,
+    getPeriodInputsSelectors,
+    focusAndType,
 } = require('../defaults');
 const { RunDefinition } = require('../../../lib/server/services/run/getRunDefinition.js');
 const { RUN_QUALITIES, RunQualities } = require('../../../lib/domain/enums/RunQualities.js');
-const { fillInput, getPopoverContent, getInnerText, waitForTimeout, getPopoverSelector, getPeriodInputsSelectors, focusAndType } = require('../defaults.js');
 const { waitForDownload } = require('../../utilities/waitForDownload');
 
 const { expect } = chai;
@@ -434,8 +440,9 @@ module.exports = () => {
         await focusAndType(page, periodInputsSelectors.fromTimeSelector, '11:11AM');
         await focusAndType(page, periodInputsSelectors.toTimeSelector, '02:00PM');
 
-        await focusAndType(page, periodInputsSelectors.fromDateSelector, '03-02-2021');
-        await focusAndType(page, periodInputsSelectors.toDateSelector, '03-02-2021');
+        // American style input
+        await focusAndType(page, periodInputsSelectors.fromDateSelector, '02/03/2021');
+        await focusAndType(page, periodInputsSelectors.toDateSelector, '02/03/2021');
 
         await page.$eval(periodInputsSelectors.toDateSelector, (element) => element.blur());
 
@@ -452,8 +459,8 @@ module.exports = () => {
         expect(await page.$eval(periodInputsSelectors.fromTimeSelector, (element) => element.getAttribute('max'))).to.equal('13:59');
         expect(await page.$eval(periodInputsSelectors.fromDateSelector, (element) => element.getAttribute('max'))).to.equal('2021-02-03');
 
-        // Setting different dates
-        await focusAndType(page, periodInputsSelectors.toDateSelector, '05-02-2021');
+        // Setting different dates, still american style input
+        await focusAndType(page, periodInputsSelectors.toDateSelector, '02/05/2021');
 
         await page.waitForFunction(
             (selector) => document.querySelector(selector).getAttribute('min') === null,

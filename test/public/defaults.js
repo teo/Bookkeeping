@@ -679,7 +679,7 @@ module.exports.validateDate = (date, format = 'DD/MM/YYYY hh:mm:ss') => !isNaN(d
  * @return {{fromDateSelector: string, fromTimeSelector: string, toDateSelector: string, toTimeSelector: string}} the selectors
  */
 module.exports.getPeriodInputsSelectors = (popoverSelector) => {
-    const commonInputsAncestor = `${popoverSelector} > div > div > div`;
+    const commonInputsAncestor = `${popoverSelector} > div > div > div > div`;
     return {
         fromDateSelector: `${commonInputsAncestor} > div:nth-child(1) input:nth-child(1)`,
         fromTimeSelector: `${commonInputsAncestor} > div:nth-child(1) input:nth-child(2)`,
@@ -687,4 +687,3 @@ module.exports.getPeriodInputsSelectors = (popoverSelector) => {
         toTimeSelector: `${commonInputsAncestor} > div:nth-child(2) input:nth-child(2)`,
     };
 };
-
