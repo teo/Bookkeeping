@@ -29,7 +29,6 @@ const arrayRequest = {
     },
 };
 
-// eslint-disable-next-line require-jsdoc
 const expectRequestToReturn403 = (request) => {
     const response = {};
     response.status = sinon.fake.returns(response);

@@ -84,7 +84,6 @@ module.exports = () => {
 
     it('shows correct datatypes in respective columns', async () => {
         await goToPage(page, 'runs-per-simulation-pass', { queryParameters: { simulationPassId: 2 } });
-        // eslint-disable-next-line require-jsdoc
         const validateDate = (date) => date === '-' || !isNaN(dateAndTime.parse(date, 'DD/MM/YYYY hh:mm:ss'));
         const tableDataValidators = {
             runNumber: (number) => !isNaN(number),
