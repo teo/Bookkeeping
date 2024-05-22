@@ -448,7 +448,7 @@ module.exports = () => {
 
         // Wait for page to be refreshed
         await page.waitForFunction(
-            (selector) => document.querySelector(selector).getAttribute('min') !== null,
+            (selector) => document.querySelector(selector).getAttribute('min') !== '',
             { timeout: 500 },
             periodInputsSelectors.toTimeSelector,
         );
@@ -463,13 +463,13 @@ module.exports = () => {
         await focusAndType(page, periodInputsSelectors.toDateSelector, '02/05/2021');
 
         await page.waitForFunction(
-            (selector) => document.querySelector(selector).getAttribute('min') === null,
+            (selector) => document.querySelector(selector).getAttribute('min') === '',
             { timeout: 500 },
             periodInputsSelectors.toTimeSelector,
         );
         expect(await page.$eval(periodInputsSelectors.toDateSelector, (element) => element.getAttribute('min'))).to.equal('2021-02-03');
 
-        expect(await page.$eval(periodInputsSelectors.fromTimeSelector, (element) => element.getAttribute('max'))).to.equal(null);
+        expect(await page.$eval(periodInputsSelectors.fromTimeSelector, (element) => element.getAttribute('max'))).to.equal('');
         expect(await page.$eval(periodInputsSelectors.fromDateSelector, (element) => element.getAttribute('max'))).to.equal('2021-02-05');
 
         await pressElement(page, '.timeO2Start-filter .popover-trigger');
