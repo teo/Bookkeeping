@@ -713,7 +713,7 @@ module.exports.expectLink = async (element, selector, { href, innerText }) => {
 module.exports.validateDate = (date, format = 'DD/MM/YYYY hh:mm:ss') => !isNaN(dateAndTime.parse(date, format));
 
 /**
- * Return the selector for all the inputs composing a period inputs selectors
+ * Return the selector for all the inputs composing a period inputs
  *
  * @param {string} popoverSelector the selector of the period inputs parent
  * @return {{fromDateSelector: string, fromTimeSelector: string, toDateSelector: string, toTimeSelector: string}} the selectors
