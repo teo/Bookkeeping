@@ -22,15 +22,21 @@ const {
     getFirstRow,
     goToPage,
     checkColumnBalloon,
-    waitForNetworkIdleAndRedraw,
     fillInput,
     getPopoverContent,
     getInnerText,
-    waitForTimeout,
     getPopoverSelector,
     getPeriodInputsSelectors,
     focusAndType,
-} = require('../defaults');
+    waitForTableLength,
+    waitForNavigation,
+    waitForTableTotalRowsCountToEqual,
+    expectInputValue,
+    expectColumnValues,
+    waitForEmptyTable,
+    waitForDownload,
+    expectUrlParams,
+} = require('../defaults.js');
 const { RunDefinition } = require('../../../lib/server/services/run/getRunDefinition.js');
 const { RUN_QUALITIES, RunQualities } = require('../../../lib/domain/enums/RunQualities.js');
 const { resetDatabaseContent } = require('../../utilities/resetDatabaseContent.js');
