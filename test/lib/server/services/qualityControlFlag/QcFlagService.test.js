@@ -705,18 +705,21 @@ module.exports = () => {
             }
 
             {
-                from = new Date('2024-07-01 06:00:00').getTime();
-                to = new Date('2024-07-01 22:00:00').getTime();
-                await runService.update({ runNumber }, { runPatch: { timeTrgStart: from, timeTrgEnd: to } });
+                from = new Date('2024-07-01 06:00:00');
+                to = new Date('2024-07-01 22:00:00');
+
+                await runService.update({ runNumber }, { runPatch: { timeTrgStart: from.getTime(), timeTrgEnd: to.getTime() } });
+
                 const updatedEffectivePeriods = await QcFlagEffectivePeriodRepository.findAll({
                     include: [{ association: 'flag', where: { runNumber } }],
                 });
-                expect(updatedEffectivePeriods.map(({ from, to }) => ({ from, to }))).to.have.all.deep.ordered.members([
-                    { from: new Date('2024-07-01 13:00:00').getTime(), to: new Date('2024-07-01 15:00:00').getTime() },
-                    { from, to: new Date('2024-07-01 12:00:00').getTime() },
-                    { from: new Date('2024-07-01 12:00:00').getTime(), to: new Date('2024-07-01 13:00:00').getTime() },
-                    { from: new Date('2024-07-01 15:00:00').getTime(), to: new Date('2024-07-01 16:00:00').getTime() },
-                    { from: new Date('2024-07-01 16:00:00').getTime(), to },
+
+                expect(updatedEffectivePeriods.map(({ from, to }) => ({ from, to }))).to.have.all.deep.members([
+                    { from: new Date('2024-07-01 12:00:00'), to: new Date('2024-07-01 13:00:00') },
+                    { from, to: new Date('2024-07-01 12:00:00') },
+                    { from: new Date('2024-07-01 13:00:00'), to: new Date('2024-07-01 15:00:00') },
+                    { from: new Date('2024-07-01 16:00:00'), to },
+                    { from: new Date('2024-07-01 15:00:00'), to: new Date('2024-07-01 16:00:00') },
                 ]);
             }
         });
